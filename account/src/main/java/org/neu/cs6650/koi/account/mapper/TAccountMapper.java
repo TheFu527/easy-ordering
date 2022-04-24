@@ -7,6 +7,4 @@ import org.apache.ibatis.annotations.Param;
 public interface TAccountMapper extends BaseMapper<TAccount> {
 
     int decreaseAccount(@Param("userId") String userId, @Param("amount") Double amount);
-
-    int testGlobalLock(@Param("userId") String userId);
 }
