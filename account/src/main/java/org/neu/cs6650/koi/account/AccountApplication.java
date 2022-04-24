@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan({"org.neu.cs6650.koi.account.mapper"})
 @EnableDubbo(scanBasePackages = "org.neu.cs6650.koi.account")
-public class
-AccountApplication {
+public class AccountApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AccountApplication.class, args);
