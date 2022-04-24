@@ -28,11 +28,4 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
         return response;
     }
 
-    @Override
-    @GlobalLock
-    @Transactional(rollbackFor = {Throwable.class})
-    public void testGlobalLock() {
-        baseMapper.testGlobalLock("1");
-        System.out.println("Hi, i got lock, i will do some thing with holding this lock.");
-    }
 }

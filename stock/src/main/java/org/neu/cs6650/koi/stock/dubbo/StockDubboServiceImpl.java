@@ -2,6 +2,7 @@ package org.neu.cs6650.koi.stock.dubbo;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
 import org.neu.cs6650.koi.common.dubbo.StockDubboService;
 import org.neu.cs6650.koi.common.response.ObjectResponse;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Service(version = "1.0.0", protocol = "${dubbo.protocol.id}", application = "${dubbo.application.id}",
     registry = "${dubbo.registry.id}", timeout = 3000)
+@Slf4j
 public class StockDubboServiceImpl implements StockDubboService {
 
     @Autowired
@@ -17,7 +19,8 @@ public class StockDubboServiceImpl implements StockDubboService {
 
     @Override
     public ObjectResponse decreaseStock(CommodityDTO commodityDTO) {
-        System.out.println("Global transaction id: " + RootContext.getXID());
+        log.info("Global transaction id: " + RootContext.getXID());
+        log.info("decreaseStock: {}", commodityDTO.toString());
         return stockService.decreaseStock(commodityDTO);
     }
 }

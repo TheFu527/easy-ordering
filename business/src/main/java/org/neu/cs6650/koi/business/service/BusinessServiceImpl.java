@@ -42,9 +42,6 @@ public class BusinessServiceImpl implements BusinessService {
         orderDTO.setOrderAmount(businessDTO.getAmount());
         ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
 
-//        if (!flag) {
-//            throw new RuntimeException("After the test throws an exception, the distributed transaction is rolled back!");
-//        }
 
         if (stockResponse.getStatus() != 200 || response.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
