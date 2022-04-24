@@ -52,7 +52,7 @@ cmd startup.cmd -m standalone
 [Seata v1.4.2](https://github.com/seata/seata/releases/tag/v1.4.2)
 
 ```shell
-sh seata-server.sh 8091 file
+sh seata-server.sh --port 8091
 ```
 
 ### Start Easy Ordering
