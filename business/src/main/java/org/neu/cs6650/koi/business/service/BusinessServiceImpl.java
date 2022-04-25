@@ -2,6 +2,7 @@ package org.neu.cs6650.koi.business.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
 import org.neu.cs6650.koi.common.dto.OrderDTO;
@@ -14,6 +15,7 @@ import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class BusinessServiceImpl implements BusinessService {
 
     @Reference(version = "1.0.0")
@@ -27,7 +29,7 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse handleBusiness(BusinessDTO businessDTO) {
-        System.out.println("Start global transaction, XID: " + RootContext.getXID());
+        log.info("Start global transaction, XID: {}", RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
 
         CommodityDTO commodityDTO = new CommodityDTO();

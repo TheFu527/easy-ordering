@@ -6,9 +6,7 @@ import org.neu.cs6650.koi.account.mapper.TAccountMapper;
 import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.enums.RspStatusEnum;
 import org.neu.cs6650.koi.common.response.ObjectResponse;
-import io.seata.spring.annotation.GlobalLock;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> implements ITAccountService {
