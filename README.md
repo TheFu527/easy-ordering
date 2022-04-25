@@ -5,17 +5,50 @@
 ## List of features
 
 ## Build
+java version: jdk 11. Please remind! This works for all four web applications!
+
+
+## Clone
+
+```
+git clone https://github.com/TheFu527/easy-ordering
+cd easy-ordering
+```
 
 ## How to Run
 
 ### Run MySQL & Import SQL Script
 
+#### Docker installation
+1. Get the Release from official website https://docs.docker.com/get-docker/ 
+2. (Linux) Start docker service `sudo systemctl start docker.serivce`
+3. Pull mysql and create password `root` for user `root`.
 ```shell
 docker pull mysql:5.7.37
 docker run -itd --name mysql5-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root mysql:5.7.37
 ```
+#### Import sql/seata.sql to database
+1. Get the container id and copy the sql/seata.sql file to container.
+```
+sudo docker ps # get container id like 5b10bc261e77
+sudo docker cp ./sql/seata.sql container_id:seata.sql
+```
+3. First enter the docker container.
+```
+sudo docker exec -it mysql5-test bash
+```
+3. Enter the MySQL server
+```
+mysql -uroot -p
+Enter password: root
+mysql> CREATE SCHEMA seata;
+mysql> exit
+```
+4. Import SQL file in docker.
+```
+mysql --user="root" --database="seata" --password="root" < "./seata.sql"
+```
 
-Import sql/seata.sql to database (create schema seata first).
 
 Then we can see:
 ```shell
@@ -75,4 +108,15 @@ Result:
 {"status":200,"message":"SUCCESS","data":null}
 ```
 
-
+## Common Problem
+### Cannot load configuration class
+ ```
+Cannot load configuration class:org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration
+ ```
+Use the wrong version of JDK, should be jdk 11. 
+The download link: https://files01.tchspt.com/temp/jdk-11.0.14_linux-x64_bin.tar.gz
+### ERROR 1045 (28000)
+```
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+```
+Input wrong password of server, the user should be `root`, password should be 'root'.
