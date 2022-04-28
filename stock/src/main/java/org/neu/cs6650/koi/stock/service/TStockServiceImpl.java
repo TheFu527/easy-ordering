@@ -9,6 +9,8 @@ import org.neu.cs6650.koi.stock.entity.TStock;
 import org.neu.cs6650.koi.stock.mapper.TStockMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TStockServiceImpl extends ServiceImpl<TStockMapper, TStock> implements ITStockService {
 
@@ -45,10 +47,10 @@ public class TStockServiceImpl extends ServiceImpl<TStockMapper, TStock> impleme
 
     @Override
     public ObjectResponse getAllStocks() {
-        int stock = baseMapper.getAllStocks();
+        List<TStock> stockList = baseMapper.getAllStocks();
         ObjectResponse<Object> response = new ObjectResponse<>();
         response.setStatus(RspStatusEnum.SUCCESS.getCode());
-        response.setData(stock);
+        response.setData(stockList);
         response.setMessage(RspStatusEnum.SUCCESS.getMessage());
         return response;
     }

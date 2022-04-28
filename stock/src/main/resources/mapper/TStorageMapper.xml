@@ -31,7 +31,7 @@
         where commodity_code = #{commodityCode}
     </select>
 
-    <select id="getAllStocks">
+    <select id="getAllStocks" resultType="org.neu.cs6650.koi.stock.entity.TStock">
         select * from t_stock
     </select>
 </mapper>
