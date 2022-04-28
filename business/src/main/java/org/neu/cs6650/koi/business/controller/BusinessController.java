@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/business/dubbo")
+@RequestMapping("/business/")
 @Slf4j
 public class BusinessController {
 
