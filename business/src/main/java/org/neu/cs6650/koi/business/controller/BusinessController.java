@@ -24,27 +24,30 @@ public class BusinessController {
         return businessService.handleBusiness(businessDTO);
     }
 
-    @PostMapping("/getStock")
-    ObjectResponse getStock(@RequestBody CommodityDTO commodityDTO) {
-        log.info("Request parameter: {}", commodityDTO.toString());
+    @GetMapping("/getStock")
+    ObjectResponse getStock(@RequestParam String commodityCode) {
+        CommodityDTO commodityDTO = new CommodityDTO();
+        commodityDTO.setCommodityCode(commodityCode);
         return businessService.getStock(commodityDTO);
     }
 
-    @PostMapping("/getAllStocks")
+    @GetMapping("/getAllStocks")
     ObjectResponse getAllStock() {
         log.info("Request All Stocks");
         return businessService.getAllStocks();
     }
 
     @GetMapping("/getOrderByOId")
-    ObjectResponse getOrderByOId(@RequestBody OrderDTO orderDTO) {
-       log.info("Request parameter: {}", orderDTO.toString());
+    ObjectResponse getOrderByOId(@RequestParam String orderNo) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderNo(orderNo);
         return businessService.getOrderByOId(orderDTO);
     }
 
     @GetMapping("/getOrderByUId")
-    ObjectResponse getOrderByUid(@RequestBody AccountDTO accountDTO) {
-        log.info("Request parameter: {}", accountDTO.toString());
+    ObjectResponse getOrderByUId(@RequestParam String userId) {
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setUserId(userId);
         return businessService.getOrderByUId(accountDTO);
     }
 }
