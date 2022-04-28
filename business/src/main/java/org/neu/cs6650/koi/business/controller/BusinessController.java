@@ -32,12 +32,12 @@ public class BusinessController {
 //        return businessService.getStock(commodityDTO);
 //    }
 
-//    @RequestMapping(value = "/stock", method = RequestMethod.GET)
-//    ObjectResponse getStock(@RequestParam(name = "commodityCode") String commodityCode) {
-//        CommodityDTO commodityDTO = new CommodityDTO();
-//        commodityDTO.setCommodityCode(commodityCode);
-//        return businessService.getStock(commodityDTO);
-//    }
+    @RequestMapping(value = "/stock", method = RequestMethod.GET)
+    ObjectResponse getStock(@RequestParam(name = "commodityCode") String commodityCode) {
+        CommodityDTO commodityDTO = new CommodityDTO();
+        commodityDTO.setCommodityCode(commodityCode);
+        return businessService.getStock(commodityDTO);
+    }
 
 
 //    @GetMapping("/getAllStocks")
@@ -46,17 +46,10 @@ public class BusinessController {
 //        return businessService.getAllStocks();
 //    }
 
-    @RequestMapping(value = "/stock", method = RequestMethod.GET)
+    @RequestMapping(value = "/stocks", method = RequestMethod.GET)
     ObjectResponse getAllStock() {
         log.info("Request All Stocks");
         return businessService.getAllStocks();
-    }
-
-    @RequestMapping(value = "/stock", method = RequestMethod.GET)
-    ObjectResponse getStock(@PathVariable(name = "commodityCode") String commodityCode) {
-        CommodityDTO commodityDTO = new CommodityDTO();
-        commodityDTO.setCommodityCode(commodityCode);
-        return businessService.getStock(commodityDTO);
     }
 
 //    @GetMapping("/getOrderByOId")
