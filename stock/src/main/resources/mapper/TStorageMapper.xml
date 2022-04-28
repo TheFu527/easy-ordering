@@ -20,4 +20,18 @@
         where commodity_code = #{commodityCode}
     </update>
 
+    <update id="increaseStock">
+        update t_stock
+        set count = count + ${count}
+        where commodity_code = #{commodityCode}
+    </update>
+
+    <select id="getStock" resultType="org.neu.cs6650.koi.stock.entity.TStock">
+        select * from t_stock
+        where commodity_code = #{commodityCode}
+    </select>
+
+    <select id="getAllStocks">
+        select * from t_stock
+    </select>
 </mapper>

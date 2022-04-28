@@ -7,4 +7,10 @@ import org.apache.ibatis.annotations.Param;
 public interface TStockMapper extends BaseMapper<TStock> {
 
     int decreaseStock(@Param("commodityCode") String commodityCode, @Param("count") Integer count);
+
+    int increaseStock(@Param("commodityCode") String commodityCode, @Param("count") Integer count);
+
+    TStock getStock(@Param("commodityCode") String commodityCode);
+
+    int getAllStocks();
 }
