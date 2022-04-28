@@ -84,6 +84,7 @@ public class BusinessServiceImpl implements BusinessService {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
 
+        log.info("Get Stock response :" + objectResponse.getData());
         objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
         objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
         objectResponse.setData(stockResponse.getData());

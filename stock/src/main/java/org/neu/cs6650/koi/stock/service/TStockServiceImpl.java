@@ -58,6 +58,7 @@ public class TStockServiceImpl extends ServiceImpl<TStockMapper, TStock> impleme
     @Override
     public ObjectResponse getStock(CommodityDTO commodityDTO) {
         TStock stock = baseMapper.getStock(commodityDTO.getCommodityCode());
+        log.debug("getStock for commodity : " + commodityDTO.getCommodityCode() + " stocks " + stock.toString());
         ObjectResponse<Object> response = new ObjectResponse<>();
         response.setStatus(RspStatusEnum.SUCCESS.getCode());
         response.setData(stock);
