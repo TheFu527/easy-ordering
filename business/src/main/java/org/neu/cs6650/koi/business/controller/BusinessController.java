@@ -1,15 +1,14 @@
 package org.neu.cs6650.koi.business.controller;
 
 import org.neu.cs6650.koi.business.service.BusinessService;
+import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
+import org.neu.cs6650.koi.common.dto.OrderDTO;
 import org.neu.cs6650.koi.common.response.ObjectResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/business/dubbo")
@@ -37,9 +36,15 @@ public class BusinessController {
         return businessService.getAllStocks();
     }
 
-    @PostMapping("/getOrderById")
-    ObjectResponse getOrderById() {
-        log.info("Request All Stocks");
-        return businessService.getAllStocks();
+    @GetMapping("/getOrderByOId")
+    ObjectResponse getOrderByOId(@RequestBody OrderDTO orderDTO) {
+       log.info("Request parameter: {}", orderDTO.toString());
+        return businessService.getOrderByOId(orderDTO);
+    }
+
+    @GetMapping("/getOrderByUId")
+    ObjectResponse getOrderByUid(@RequestBody AccountDTO accountDTO) {
+        log.info("Request parameter: {}", accountDTO.toString());
+        return businessService.getOrderByUId(accountDTO);
     }
 }

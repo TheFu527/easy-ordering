@@ -12,6 +12,7 @@ import org.neu.cs6650.koi.order.mapper.TOrderMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -50,6 +51,26 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         }
 
         response.setStatus(RspStatusEnum.SUCCESS.getCode());
+        response.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        return response;
+    }
+
+    @Override
+    public ObjectResponse getOrderByOId(OrderDTO orderDTO) {
+        TOrder order = baseMapper.getOrderByOId(orderDTO.getOrderNo());
+        ObjectResponse<Object> response = new ObjectResponse<>();
+        response.setStatus(RspStatusEnum.SUCCESS.getCode());
+        response.setData(order);
+        response.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        return response;
+    }
+
+    @Override
+    public ObjectResponse getOrderByUId(AccountDTO accountDTO) {
+        List<TOrder> orderList = baseMapper.getOrderByUId(accountDTO.getUserId());
+        ObjectResponse<Object> response = new ObjectResponse<>();
+        response.setStatus(RspStatusEnum.SUCCESS.getCode());
+        response.setData(orderList);
         response.setMessage(RspStatusEnum.SUCCESS.getMessage());
         return response;
     }

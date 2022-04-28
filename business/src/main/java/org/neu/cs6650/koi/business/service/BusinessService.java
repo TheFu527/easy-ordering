@@ -1,7 +1,9 @@
 package org.neu.cs6650.koi.business.service;
 
+import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
+import org.neu.cs6650.koi.common.dto.OrderDTO;
 import org.neu.cs6650.koi.common.response.ObjectResponse;
 
 public interface BusinessService {
@@ -12,5 +14,7 @@ public interface BusinessService {
 
     ObjectResponse getStock(CommodityDTO commodityDTO);
 
-    ObjectResponse getOrderById(BusinessDTO businessDTO);
+    ObjectResponse getOrderByOId(OrderDTO orderDTO);
+
+    ObjectResponse getOrderByUId(AccountDTO accountDTO);
 }
