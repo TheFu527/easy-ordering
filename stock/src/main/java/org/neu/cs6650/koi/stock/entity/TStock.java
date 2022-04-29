@@ -12,7 +12,7 @@ public class TStock extends Model<TStock> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    private String commodity_code;
+    private String commodityCode;
     private String name;
     private Integer count;
 
@@ -25,11 +25,11 @@ public class TStock extends Model<TStock> {
     }
 
     public String getCommodityCode() {
-        return commodity_code;
+        return commodityCode;
     }
 
     public void setCommodityCode(String commodityCode) {
-        this.commodity_code = commodityCode;
+        this.commodityCode = commodityCode;
     }
 
     public String getName() {
@@ -55,7 +55,7 @@ public class TStock extends Model<TStock> {
 
     @Override
     public String toString() {
-        return "TStock{" + ", id=" + id + ", commodityCode=" + commodity_code + ", name=" + name + ", count=" + count
+        return "TStock{" + ", id=" + id + ", commodityCode=" + commodityCode + ", name=" + name + ", count=" + count
             + "}";
     }
 }

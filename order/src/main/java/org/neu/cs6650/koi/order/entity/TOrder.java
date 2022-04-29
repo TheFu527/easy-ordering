@@ -12,9 +12,9 @@ public class TOrder extends Model<TOrder> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-    private String order_no;
-    private String user_id;
-    private String commodity_code;
+    private String orderNo;
+    private String userId;
+    private String commodityCode;
     private Integer count;
     private Double amount;
 
@@ -27,27 +27,27 @@ public class TOrder extends Model<TOrder> {
     }
 
     public String getOrderNo() {
-        return order_no;
+        return orderNo;
     }
 
     public void setOrderNo(String orderNo) {
-        this.order_no = orderNo;
+        this.orderNo = orderNo;
     }
 
     public String getUserId() {
-        return user_id;
+        return userId;
     }
 
     public void setUserId(String userId) {
-        this.user_id = userId;
+        this.userId = userId;
     }
 
     public String getCommodityCode() {
-        return commodity_code;
+        return commodityCode;
     }
 
     public void setCommodityCode(String commodityCode) {
-        this.commodity_code = commodityCode;
+        this.commodityCode = commodityCode;
     }
 
     public Integer getCount() {
@@ -73,7 +73,7 @@ public class TOrder extends Model<TOrder> {
 
     @Override
     public String toString() {
-        return "TOrder{" + ", id=" + id + ", orderNo=" + order_no + ", userId=" + user_id + ", commodityCode="
-            + commodity_code + ", count=" + count + ", amount=" + amount + "}";
+        return "TOrder{" + ", id=" + id + ", orderNo=" + orderNo + ", userId=" + userId + ", commodityCode="
+            + commodityCode + ", count=" + count + ", amount=" + amount + "}";
     }
 }

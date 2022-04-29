@@ -1,6 +1,5 @@
 package org.neu.cs6650.koi.business.controller;
 
-import org.apache.tomcat.util.http.parser.MediaType;
 import org.neu.cs6650.koi.business.service.BusinessService;
 import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
@@ -9,12 +8,17 @@ import org.neu.cs6650.koi.common.dto.OrderDTO;
 import org.neu.cs6650.koi.common.response.ObjectResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 @RestController
-@RequestMapping("/business/")
+@RequestMapping("/business")
 @Slf4j
 public class BusinessController {
 
@@ -27,21 +31,19 @@ public class BusinessController {
         return businessService.handleBusiness(businessDTO);
     }
 
-    @RequestMapping(value = "/stock", method = RequestMethod.GET)
-    ObjectResponse getStock(@RequestParam(name = "commodityCode") String commodityCode) {
-        log.info("Request Stocks commodityCode = " + commodityCode);
-        CommodityDTO commodityDTO = new CommodityDTO();
-        commodityDTO.setCommodityCode(commodityCode);
-        return businessService.getStock(commodityDTO);
-    }
-
     @RequestMapping(value = "/stocks", method = RequestMethod.GET)
-    ObjectResponse getAllStock() {
-        log.info("Request All Stocks");
-        return businessService.getAllStocks();
+    ObjectResponse getStock(@RequestParam Map<String, String> requestParams) {
+        String commodityCode = requestParams.get("commodityCode");
+        if (commodityCode != null) {
+            CommodityDTO commodityDTO = new CommodityDTO();
+            commodityDTO.setCommodityCode(commodityCode);
+            return businessService.getStock(commodityDTO);
+        } else {
+            return businessService.getAllStocks();
+        }
     }
 
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
     ObjectResponse getOrderByOId(@RequestParam Map<String, String> requestParams) {
         String userId = requestParams.get("userId");
         String orderNo = requestParams.get("orderNo");
