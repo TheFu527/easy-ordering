@@ -29,14 +29,12 @@ public class OrderDubboServiceImpl implements OrderDubboService {
 
     @Override
     public ObjectResponse<OrderDTO> getOrderByOId(OrderDTO orderDTO) {
-        log.info("Global transaction id: {}", RootContext.getXID());
         log.info("getOrderByOId: {}", orderDTO.toString());
         return orderService.getOrderByOId(orderDTO);
     }
 
     @Override
     public ObjectResponse<List<OrderDTO>> getOrderByUId(AccountDTO accountDTO) {
-        log.info("Global transaction id: {}", RootContext.getXID());
         log.info("getOrderByUId: {}", accountDTO.toString());
         return orderService.getOrderByUId(accountDTO);
     }

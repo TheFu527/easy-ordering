@@ -57,8 +57,6 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public ObjectResponse getAllStocks() {
-        log.info("Start global transaction, XID: " + RootContext.getXID());
-
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
         ObjectResponse stockResponse = stockDubboService.getAllStocks();
 
@@ -72,11 +70,8 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse getStock(CommodityDTO commodityDTO) {
-        log.info("Start global transaction, XID: " + RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-
         ObjectResponse stockResponse = stockDubboService.getStock(commodityDTO);
 
         if (stockResponse.getStatus() != 200) {
@@ -92,9 +87,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public ObjectResponse getOrderByOId(OrderDTO orderDTO) {
-        log.info("Start global transaction, XID: " + RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-
         ObjectResponse orderResponse = orderDubboService.getOrderByOId(orderDTO);
 
         if (orderResponse.getStatus() != 200) {
@@ -109,9 +102,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public ObjectResponse getOrderByUId(AccountDTO accountDTO) {
-        log.info("Start global transaction, XID: " + RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-
         ObjectResponse orderResponse = orderDubboService.getOrderByUId(accountDTO);
 
         if (orderResponse.getStatus() != 200) {
