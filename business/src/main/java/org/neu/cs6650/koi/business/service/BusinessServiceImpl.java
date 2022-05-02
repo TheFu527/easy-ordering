@@ -28,6 +28,7 @@ public class BusinessServiceImpl implements BusinessService {
     private boolean flag;
 
     @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse handleBusiness(BusinessDTO businessDTO) {
         log.info("Start global transaction, XID: {}", RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
@@ -116,6 +117,7 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse deleteOrder(OrderDTO orderDTO) {
         log.info("Start global transaction, XID: {}", RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
