@@ -15,4 +15,6 @@ public interface ITOrderService extends IService<TOrder> {
     ObjectResponse<OrderDTO> getOrderByOId(OrderDTO orderDTO);
 
     ObjectResponse getOrderByUId(AccountDTO accountDTO);
+
+    ObjectResponse deleteOrder(OrderDTO orderDTO);
 }

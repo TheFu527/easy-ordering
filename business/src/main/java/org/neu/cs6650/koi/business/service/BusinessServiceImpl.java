@@ -114,4 +114,21 @@ public class BusinessServiceImpl implements BusinessService {
         objectResponse.setData(orderResponse.getData());
         return objectResponse;
     }
+
+    @Override
+    public ObjectResponse deleteOrder(OrderDTO orderDTO) {
+        log.info("Start global transaction, XID: {}", RootContext.getXID());
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+
+        ObjectResponse<Object> response = orderDubboService.deleteOrder(orderDTO);
+
+        if (response.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(response.getData());
+        return objectResponse;
+    }
 }

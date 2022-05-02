@@ -14,4 +14,6 @@ public interface OrderDubboService {
     ObjectResponse<OrderDTO> getOrderByOId(OrderDTO orderDTO);
 
     ObjectResponse<List<OrderDTO>> getOrderByUId(AccountDTO accountDTO);
+
+    ObjectResponse<Object> deleteOrder(OrderDTO orderDTO);
 }

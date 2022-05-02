@@ -23,4 +23,11 @@ public class AccountDubboServiceImpl implements AccountDubboService {
         log.info("decreaseAccount：{}", accountDTO.toString());
         return accountService.decreaseAccount(accountDTO);
     }
+
+    @Override
+    public ObjectResponse increaseAccount(AccountDTO accountDTO) {
+        log.info("Global transaction id: {}", RootContext.getXID());
+        log.info("increaseAccount：{}", accountDTO.toString());
+        return accountService.increaseAccount(accountDTO);
+    }
 }
