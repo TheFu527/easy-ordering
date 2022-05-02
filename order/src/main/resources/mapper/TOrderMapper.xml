@@ -9,17 +9,18 @@
         <result column="commodity_code" property="commodityCode"/>
         <result column="count" property="count"/>
         <result column="amount" property="amount"/>
+        <result column="description" property="description"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id
-        , order_no, user_id, commodity_code, count, amount
+        , order_no, user_id, commodity_code, count, amount, description
     </sql>
 
     <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
             parameterType="org.neu.cs6650.koi.order.entity.TOrder">
         insert into t_order
-        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
+        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount}, #{order.description})
     </insert>
 
     <select id="getOrderByOId" resultMap="BaseResultMap">
@@ -31,4 +32,9 @@
         select * from t_order
         where user_id = #{userId}
     </select>
+
+    <delete id="deleteOrder">
+        delete from t_order
+        where order_no = #{orderNo}
+    </delete>
 </mapper>

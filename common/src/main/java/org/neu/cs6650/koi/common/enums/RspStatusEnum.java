@@ -4,13 +4,16 @@ public enum RspStatusEnum {
 
     SUCCESS(200, "SUCCESS"),
 
-    FAIL(999, "FAIL"),
+    FAIL(400, "FAIL"),
 
     EXCEPTION(500, "EXCEPTION"),
 
     NON_EXIST(400, "USER NOT EXIST"),
 
-    EXISTED_USER(400, "USER ALREADY EXIST");
+    EXISTED_USER(400, "USER ALREADY EXIST"),
+    STOCK_LOW(400, "NOT ENOUGH STOCK"),
+
+    MONEY_SHORT(400, "NOT ENOUGH MONEY");
 
     private int code;
 

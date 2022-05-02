@@ -20,6 +20,12 @@
         where user_id = #{userId}
     </update>
 
+    <update id="increaseAccount">
+        update t_account
+        set amount = amount + ${amount}
+        where user_id = #{userId}
+    </update>
+
     <select id="getAccount" resultMap="BaseResultMap">
         select * from t_account
         where user_id = #{userId}

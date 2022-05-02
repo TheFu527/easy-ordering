@@ -9,6 +9,7 @@ import org.neu.cs6650.koi.common.response.ObjectResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +27,18 @@ public class BusinessController {
     @Autowired
     private BusinessService businessService;
 
-    @PostMapping("/buy")
+    @PostMapping("/orders")
     ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO) {
         log.info("Request parameter: {}", businessDTO.toString());
         return businessService.handleBusiness(businessDTO);
+    }
+
+    @DeleteMapping("/orders")
+    ObjectResponse deleteOrder(@RequestParam String order_no) {
+        log.info("Delete order");
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderNo(order_no);
+        return businessService.deleteOrder(orderDTO);
     }
 
     @RequestMapping(value = "/stocks", method = RequestMethod.GET)

@@ -18,4 +18,6 @@ public class OrderDTO implements Serializable {
 
     private BigDecimal orderAmount;
 
+    private String description;
+
 }

@@ -22,4 +22,5 @@ public interface BusinessService {
     ObjectResponse handleLogin(AccountDTO accountDTO);
     ObjectResponse handleGetAccount(AccountDTO accountDTO);
 
+    ObjectResponse deleteOrder(OrderDTO orderDTO);
 }

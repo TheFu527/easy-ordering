@@ -8,4 +8,6 @@ public interface AccountDubboService {
     ObjectResponse decreaseAccount(AccountDTO accountDTO);
     ObjectResponse getAccount(AccountDTO accountDTO);
     ObjectResponse createAccount(AccountDTO accountDTO);
+
+    ObjectResponse increaseAccount(AccountDTO accountDTO);
 }
