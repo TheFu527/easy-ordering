@@ -14,7 +14,7 @@
 
     <sql id="Base_Column_List">
         id
-        , order_no, user_id, commodity_code, count, amount
+        , order_no, user_id, commodity_code, count, amount, description
     </sql>
 
     <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
