@@ -48,8 +48,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
         String time = getOrderTime();
-//        String description = String.format("%s: user %s placed an order on commodity %s, the count is %s, total money is %s", time, orderDTO.getCommodityCode(), orderDTO.getOrderCount(), orderDTO.getOrderAmount());
-        String description = "aaa";
+        String description = String.format("%s: user %s placed an order on commodity %s, the count is %s, total money is %s", time, orderDTO.getUserId(), orderDTO.getCommodityCode(), orderDTO.getOrderCount(), orderDTO.getOrderAmount());
         tOrder.setDescription(description);
         try {
             baseMapper.createOrder(tOrder);

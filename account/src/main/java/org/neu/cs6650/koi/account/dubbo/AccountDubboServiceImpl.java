@@ -42,4 +42,9 @@ public class AccountDubboServiceImpl implements AccountDubboService {
         log.info("increaseAccount：{}", accountDTO.toString());
         return accountService.increaseAccount(accountDTO);
     }
+
+    @Override
+    public ObjectResponse handleLogin(AccountDTO accountDTO) {
+        return accountService.handleLogin(accountDTO);
+    }
 }
