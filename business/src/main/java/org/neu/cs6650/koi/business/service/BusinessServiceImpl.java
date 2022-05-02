@@ -3,6 +3,7 @@ package org.neu.cs6650.koi.business.service;
 import com.alibaba.dubbo.config.annotation.Reference;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
 import org.neu.cs6650.koi.common.dto.OrderDTO;
@@ -27,7 +28,6 @@ public class BusinessServiceImpl implements BusinessService {
     private boolean flag;
 
     @Override
-    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse handleBusiness(BusinessDTO businessDTO) {
         log.info("Start global transaction, XID: {}", RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
@@ -52,6 +52,66 @@ public class BusinessServiceImpl implements BusinessService {
         objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
         objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
         objectResponse.setData(response.getData());
+        return objectResponse;
+    }
+
+    @Override
+    public ObjectResponse getAllStocks() {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse stockResponse = stockDubboService.getAllStocks();
+
+        if (stockResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(stockResponse.getData());
+        return objectResponse;
+    }
+
+    @Override
+    public ObjectResponse getStock(CommodityDTO commodityDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse stockResponse = stockDubboService.getStock(commodityDTO);
+
+        if (stockResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+
+        log.info("Get Stock response :" + objectResponse.getData());
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(stockResponse.getData());
+        return objectResponse;
+    }
+
+    @Override
+    public ObjectResponse getOrderByOId(OrderDTO orderDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse orderResponse = orderDubboService.getOrderByOId(orderDTO);
+
+        if (orderResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(orderResponse.getData());
+        return objectResponse;
+    }
+
+    @Override
+    public ObjectResponse getOrderByUId(AccountDTO accountDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse orderResponse = orderDubboService.getOrderByUId(accountDTO);
+
+        if (orderResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(orderResponse.getData());
         return objectResponse;
     }
 }

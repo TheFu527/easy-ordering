@@ -17,4 +17,5 @@ public class OrderDTO implements Serializable {
     private Integer orderCount;
 
     private BigDecimal orderAmount;
+
 }
