@@ -6,11 +6,12 @@
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="amount" property="amount"/>
+        <result column="password" property="password"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id
-        , user_id, amount
+        , user_id, amount, password
     </sql>
 
     <update id="decreaseAccount">
@@ -18,5 +19,16 @@
         set amount = amount - ${amount}
         where user_id = #{userId}
     </update>
+
+    <select id="getAccount" resultType="org.neu.cs6650.koi.account.entity.TAccount">
+        select * from t_account
+        where user_id = #{userId} and password = #{password}
+    </select>
+
+    <insert id="createAccount" keyProperty="id" useGeneratedKeys="true"
+            parameterType="org.neu.cs6650.koi.account.entity.TAccount">
+        insert into t_account
+        values (null, #{account.user_id}, null , #{account.password})
+    </insert>
 
 </mapper>

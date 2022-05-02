@@ -14,6 +14,7 @@ public class TAccount extends Model<TAccount> {
     private Integer id;
     private String userId;
     private Double amount;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -39,6 +40,14 @@ public class TAccount extends Model<TAccount> {
         this.amount = amount;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public Serializable pkVal() {
         return this.id;
@@ -46,6 +55,11 @@ public class TAccount extends Model<TAccount> {
 
     @Override
     public String toString() {
-        return "TAccount{" + ", id=" + id + ", userId=" + userId + ", amount=" + amount + "}";
+        return "TAccount{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", amount=" + amount +
+                ",password='" + password + '\'' +
+                '}';
     }
 }

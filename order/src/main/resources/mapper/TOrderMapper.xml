@@ -22,13 +22,4 @@
         values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
     </insert>
 
-    <select id="getOrderByOId" resultMap="BaseResultMap">
-        select * from t_order
-        where order_no = #{orderNo}
-    </select>
-
-    <select id="getOrderByUId" resultMap="BaseResultMap">
-        select * from t_order
-        where user_id = #{userId}
-    </select>
 </mapper>

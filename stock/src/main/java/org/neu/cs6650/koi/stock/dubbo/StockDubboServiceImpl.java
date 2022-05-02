@@ -23,25 +23,4 @@ public class StockDubboServiceImpl implements StockDubboService {
         log.info("decreaseStock: {}", commodityDTO.toString());
         return stockService.decreaseStock(commodityDTO);
     }
-
-    @Override
-    public ObjectResponse increaseStock(CommodityDTO commodityDTO) {
-        log.info("Global transaction id: " + RootContext.getXID());
-        log.info("increaseStock: {}", commodityDTO.toString());
-        return stockService.increaseStock(commodityDTO);
-    }
-
-    @Override
-    public ObjectResponse getAllStocks() {
-        log.info("Global transaction id: " + RootContext.getXID());
-        log.info("getAllStocks");
-        return stockService.getAllStocks();
-    }
-
-    @Override
-    public ObjectResponse getStock(CommodityDTO commodityDTO) {
-        log.info("Global transaction id: " + RootContext.getXID());
-        log.info("getStock: {}", commodityDTO.toString());
-        return stockService.getStock(commodityDTO);
-    }
 }

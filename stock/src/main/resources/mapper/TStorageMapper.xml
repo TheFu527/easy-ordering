@@ -20,18 +20,4 @@
         where commodity_code = #{commodityCode}
     </update>
 
-    <update id="increaseStock">
-        update t_stock
-        set count = count + ${count}
-        where commodity_code = #{commodityCode}
-    </update>
-
-    <select id="getStock" resultMap="BaseResultMap">
-        select * from t_stock
-        where commodity_code = #{commodityCode}
-    </select>
-
-    <select id="getAllStocks" resultMap="BaseResultMap">
-        select * from t_stock
-    </select>
 </mapper>

@@ -3,13 +3,15 @@ DROP TABLE IF EXISTS `t_account`;
 
 CREATE TABLE `t_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) DEFAULT NULL,
-  `amount` double(14,2) DEFAULT '0.00',
+  `user_id` varchar(255) DEFAULT NULL unique,
+  `amount` double(14,2) DEFAULT '4000.00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO `t_account`
-VALUES ('1', '1', '4000.00');
+VALUES ('1', 'koi', '4000.00', '6650');
+
+ALTER TABLE `t_account` ADD password varchar (255);
 
 -- t_order: table
 DROP TABLE IF EXISTS `t_order`;

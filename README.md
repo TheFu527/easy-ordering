@@ -99,7 +99,7 @@ Nacos default user/pwd: nacos/nacos
 ### CURL
 
 ```shell
-curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"KOI12345678","name":"iPhone","count":20,"amount":"1000"}' localhost:8104/api/buy
+curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"KOI12345678","name":"iPhone","count":20,"amount":"1000"}' localhost:8104/business/dubbo/buy
 ```
 
 Result:
