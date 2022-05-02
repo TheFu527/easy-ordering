@@ -11,6 +11,8 @@ CREATE TABLE `t_account` (
 INSERT INTO `t_account`
 VALUES ('1', '1', '4000.00');
 
+ALTER TABLE `t_account` ADD password varchar (255);
+
 -- t_order: table
 DROP TABLE IF EXISTS `t_order`;
 
