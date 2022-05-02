@@ -17,9 +17,7 @@ public class TOrder extends Model<TOrder> {
     private String userId;
     private String commodityCode;
     private Integer count;
-
     private Double amount;
-
     private String description;
 
     public Integer getId() {
