@@ -29,6 +29,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 
     @Reference(version = "1.0.0")
     private AccountDubboService accountDubboService;
+    @Reference(version = "1.0.0")
     private StockDubboService stockDubboService;
 
     @Override
