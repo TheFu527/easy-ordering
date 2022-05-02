@@ -9,6 +9,7 @@
         <result column="commodity_code" property="commodityCode"/>
         <result column="count" property="count"/>
         <result column="amount" property="amount"/>
+        <result column="description" property="description"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -19,7 +20,7 @@
     <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
             parameterType="org.neu.cs6650.koi.order.entity.TOrder">
         insert into t_order
-        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
+        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount}, ${order.description})
     </insert>
 
     <select id="getOrderByOId" resultMap="BaseResultMap">
