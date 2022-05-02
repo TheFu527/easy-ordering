@@ -140,7 +140,7 @@ public class BusinessServiceImpl implements BusinessService {
     //@GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse handleLogin(AccountDTO accountDTO) {
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-        ObjectResponse loginResponse = handleGetAccount(accountDTO);
+        ObjectResponse loginResponse = accountDubboService.handleLogin(accountDTO);
 
         if (loginResponse.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);

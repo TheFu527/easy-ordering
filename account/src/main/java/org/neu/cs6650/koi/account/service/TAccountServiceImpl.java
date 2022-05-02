@@ -43,6 +43,26 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
         response.setMessage(RspStatusEnum.FAIL.getMessage());
         return response;
     }
+
+    @Override
+    public ObjectResponse handleLogin(AccountDTO accountDTO) {
+        ObjectResponse response = new ObjectResponse<>();
+        TAccount tAccount = baseMapper.getAccount(accountDTO.getUserId());
+        if (tAccount == null) {
+            response.setStatus(RspStatusEnum.NON_EXIST.getCode());
+            response.setMessage(RspStatusEnum.NON_EXIST.getMessage());
+            return response;
+        } else if (tAccount.getPassword() != accountDTO.getPassword()) {
+            response.setStatus(RspStatusEnum.NOT_MATCH.getCode());
+            response.setMessage(RspStatusEnum.NOT_MATCH.getMessage());
+            return response;
+        }
+        response.setStatus(RspStatusEnum.SUCCESS.getCode());
+        response.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        response.setData(tAccount);
+        return response;
+    }
+
     @Override
     public ObjectResponse getAccount(AccountDTO accountDTO) {
         ObjectResponse response = new ObjectResponse<>();

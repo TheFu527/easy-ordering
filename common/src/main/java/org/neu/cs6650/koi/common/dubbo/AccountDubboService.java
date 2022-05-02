@@ -10,4 +10,6 @@ public interface AccountDubboService {
     ObjectResponse createAccount(AccountDTO accountDTO);
 
     ObjectResponse increaseAccount(AccountDTO accountDTO);
+
+    ObjectResponse handleLogin(AccountDTO accountDTO);
 }

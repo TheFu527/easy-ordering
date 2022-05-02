@@ -12,4 +12,6 @@ public interface ITAccountService extends IService<TAccount> {
     ObjectResponse createAccount(AccountDTO accountDTO);
 
     ObjectResponse increaseAccount(AccountDTO accountDTO);
+
+    ObjectResponse handleLogin(AccountDTO accountDTO);
 }
