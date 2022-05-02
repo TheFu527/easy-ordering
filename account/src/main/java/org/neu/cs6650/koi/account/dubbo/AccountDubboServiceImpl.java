@@ -25,8 +25,8 @@ public class AccountDubboServiceImpl implements AccountDubboService {
     }
 
     @Override
-    public ObjectResponse getAccount(String user_name, String password) {
-        return accountService.getAccount(user_name, password);
+    public ObjectResponse getAccount(AccountDTO accountDTO) {
+        return accountService.getAccount(accountDTO);
     }
 
     @Override

@@ -20,15 +20,15 @@
         where user_id = #{userId}
     </update>
 
-    <select id="getAccount" resultType="org.neu.cs6650.koi.account.entity.TAccount">
+    <select id="getAccount" resultMap="BaseResultMap">
         select * from t_account
-        where user_id = #{userId} and password = #{password}
+        where user_id = #{userId}
     </select>
 
     <insert id="createAccount" keyProperty="id" useGeneratedKeys="true"
             parameterType="org.neu.cs6650.koi.account.entity.TAccount">
         insert into t_account
-        values (null, #{account.user_id}, null , #{account.password})
+        values (null, #{account.userId}, #{account.amount} , #{account.password})
     </insert>
 
 </mapper>

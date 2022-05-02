@@ -120,12 +120,8 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
-    //@GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
-    public ObjectResponse handleRegister(String name, String password) {
-        AccountDTO accountDTO = new AccountDTO();
-        //create accountDTO object.
-        accountDTO.setUserId(name);
-        accountDTO.setPassword(password);
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
+    public ObjectResponse handleRegister(AccountDTO accountDTO) {
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
         ObjectResponse accountResponse = accountDubboService.createAccount(accountDTO);
         if (accountResponse.getStatus() != 200) {
@@ -136,31 +132,28 @@ public class BusinessServiceImpl implements BusinessService {
         objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
         objectResponse.setData(accountResponse.getData());
         return objectResponse;
-
     }
 
 
     @Override
     //@GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
-    public ObjectResponse handleLogin(String name, String password) {
+    public ObjectResponse handleLogin(AccountDTO accountDTO) {
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-        ObjectResponse loginResponse = handleGetAccount(name, password);
-        //if user exist, return user info.
-        if (loginResponse.getStatus() == 200) {
-            objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
-            objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
-            objectResponse.setData(loginResponse.getData());
-            return objectResponse;
-        } else {
-            System.out.println("User doesn't exist, add new user.");
-            return handleRegister(name, password);
+        ObjectResponse loginResponse = handleGetAccount(accountDTO);
+
+        if (loginResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
         }
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(loginResponse.getData());
+        return objectResponse;
     }
 
     @Override
-    public ObjectResponse handleGetAccount(String name, String password) {
+    public ObjectResponse handleGetAccount(AccountDTO accountDTO) {
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-        ObjectResponse accountResponse = accountDubboService.getAccount(name, password);
+        ObjectResponse accountResponse = accountDubboService.getAccount(accountDTO);
         if (accountResponse.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
@@ -169,6 +162,5 @@ public class BusinessServiceImpl implements BusinessService {
         objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
         objectResponse.setData(accountResponse.getData());
         return objectResponse;
-
     }
 }

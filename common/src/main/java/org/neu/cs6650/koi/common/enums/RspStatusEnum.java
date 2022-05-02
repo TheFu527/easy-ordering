@@ -6,7 +6,11 @@ public enum RspStatusEnum {
 
     FAIL(999, "FAIL"),
 
-    EXCEPTION(500, "EXCEPTION");
+    EXCEPTION(500, "EXCEPTION"),
+
+    NON_EXIST(400, "USER NOT EXIST"),
+
+    EXISTED_USER(400, "USER ALREADY EXIST");
 
     private int code;
 

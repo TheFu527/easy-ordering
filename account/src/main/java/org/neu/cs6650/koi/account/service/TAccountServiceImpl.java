@@ -29,40 +29,39 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
         return response;
     }
     @Override
-    public ObjectResponse getAccount(String user_name, String password) {
-        ObjectResponse<AccountDTO> response = new ObjectResponse<>();
-        TAccount tAccount = baseMapper.getAccount(user_name, password);
-        if(tAccount != null){
-            AccountDTO accountDTO= new AccountDTO();
-            accountDTO.setId(tAccount.getId());
-            accountDTO.setUserId(tAccount.getUserId());
-            accountDTO.setAmount(BigDecimal.valueOf(tAccount.getAmount()));
-            accountDTO.setPassword(tAccount.getPassword());
+    public ObjectResponse getAccount(AccountDTO accountDTO) {
+        ObjectResponse response = new ObjectResponse<>();
+        TAccount tAccount = baseMapper.getAccount(accountDTO.getUserId());
 
+        if (tAccount != null) {
             response.setStatus(RspStatusEnum.SUCCESS.getCode());
             response.setMessage(RspStatusEnum.SUCCESS.getMessage());
-            response.setData(accountDTO);
-            return response;
+            response.setData(tAccount);
+        } else {
+            response.setStatus(RspStatusEnum.NON_EXIST.getCode());
+            response.setMessage(RspStatusEnum.NON_EXIST.getMessage());
         }
-
-        response.setStatus(RspStatusEnum.FAIL.getCode());
-        response.setMessage(RspStatusEnum.FAIL.getMessage());
         return response;
-
     }
 
     @Override
     public ObjectResponse createAccount(AccountDTO accountDTO) {
-        ObjectResponse<AccountDTO> response = new ObjectResponse<>();
+        ObjectResponse<Object> response = new ObjectResponse<>();
+        TAccount tAccount = baseMapper.getAccount(accountDTO.getUserId());
+        if (tAccount != null) {
+            response.setStatus(RspStatusEnum.EXISTED_USER.getCode());
+            response.setMessage(RspStatusEnum.NON_EXIST.getMessage());
+            return response;
+        }
 
-        TAccount tAccount = new TAccount();
+        tAccount = new TAccount();
         BeanUtils.copyProperties(accountDTO, tAccount);
         tAccount.setUserId(accountDTO.getUserId());
         tAccount.setPassword(accountDTO.getPassword());
+        tAccount.setAmount(4000.00);
+
         try {
-            //get the new id of the new user.
-            int id = baseMapper.createAccount(tAccount);
-            accountDTO.setId(id);
+            baseMapper.createAccount(tAccount);
         } catch (Exception e) {
             response.setStatus(RspStatusEnum.FAIL.getCode());
             response.setMessage(RspStatusEnum.FAIL.getMessage());
@@ -71,7 +70,7 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
 
         response.setStatus(RspStatusEnum.SUCCESS.getCode());
         response.setMessage(RspStatusEnum.SUCCESS.getMessage());
-        response.setData(accountDTO);
+        response.setData(tAccount);
         return response;
     }
 

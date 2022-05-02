@@ -18,8 +18,8 @@ public interface BusinessService {
 
     ObjectResponse getOrderByUId(AccountDTO accountDTO);
 
-    ObjectResponse handleRegister(String name, String password);
-    ObjectResponse handleLogin(String name, String password);
-    ObjectResponse handleGetAccount(String name, String password);
+    ObjectResponse handleRegister(AccountDTO accountDTO);
+    ObjectResponse handleLogin(AccountDTO accountDTO);
+    ObjectResponse handleGetAccount(AccountDTO accountDTO);
 
 }

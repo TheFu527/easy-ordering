@@ -60,24 +60,27 @@ public class BusinessController {
     }
         //post api for login.
         //return user row if user exist, otherwise create new user.
-        @PostMapping("/account")
-        ObjectResponse handleLogin(String name, String password) {
+        @PostMapping("/accounts/login")
+        ObjectResponse handleLogin(@RequestBody AccountDTO accountDTO) {
             //LOGGER.info("Request parameter: {}", name, password);
-            return businessService.handleLogin(name, password);
+
+            return businessService.handleLogin(accountDTO);
         }
 
         //post api for register(create new user).
         //return all info including user id.
-        @PostMapping("/newAccount")
-        ObjectResponse handleRegister(String name, String password) {
+        @PostMapping("/accounts/register")
+        ObjectResponse handleRegister(@RequestBody AccountDTO accountDTO) {
             //LOGGER.info("Request parameter: {}", name, password);
-            return businessService.handleRegister(name, password);
+            return businessService.handleRegister(accountDTO);
         }
 
         //post api for getting existing user info.
-        @GetMapping("/account")
-        ObjectResponse handleGetAccount(String user_name, String password) {
+        @GetMapping("/accounts")
+        ObjectResponse handleGetAccount(String user_id) {
             //LOGGER.info("Request parameter: {}", user_name, password);
-            return businessService.handleGetAccount(user_name, password);
+            AccountDTO accountDTO = new AccountDTO();
+            accountDTO.setUserId(user_id);
+            return businessService.handleGetAccount(accountDTO);
     }
 }
