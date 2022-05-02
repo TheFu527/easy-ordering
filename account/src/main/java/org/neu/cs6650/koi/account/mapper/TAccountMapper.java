@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 public interface TAccountMapper extends BaseMapper<TAccount> {
 
     int decreaseAccount(@Param("userId") String userId, @Param("amount") Double amount);
+    int createAccount(@Param("account") TAccount account);
 
     int increaseAccount(@Param("userId") String userId, @Param("amount") Double amount);
     TAccount getAccount(@Param("userId") String userId);

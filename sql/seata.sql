@@ -5,11 +5,12 @@ CREATE TABLE `t_account` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) DEFAULT NULL,
   `amount` double(14,2) DEFAULT '0.00',
+  `password` varchar (255),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 INSERT INTO `t_account`
-VALUES ('1', '1', '4000.00');
+VALUES ('1', '1', '4000.00', '1');
 
 -- t_order: table
 DROP TABLE IF EXISTS `t_order`;

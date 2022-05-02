@@ -18,5 +18,9 @@ public interface BusinessService {
 
     ObjectResponse getOrderByUId(AccountDTO accountDTO);
 
+    ObjectResponse handleRegister(AccountDTO accountDTO);
+    ObjectResponse handleLogin(AccountDTO accountDTO);
+    ObjectResponse handleGetAccount(AccountDTO accountDTO);
+
     ObjectResponse deleteOrder(OrderDTO orderDTO);
 }

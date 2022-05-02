@@ -7,6 +7,7 @@ import org.neu.cs6650.koi.common.dto.AccountDTO;
 import org.neu.cs6650.koi.common.dto.BusinessDTO;
 import org.neu.cs6650.koi.common.dto.CommodityDTO;
 import org.neu.cs6650.koi.common.dto.OrderDTO;
+import org.neu.cs6650.koi.common.dubbo.AccountDubboService;
 import org.neu.cs6650.koi.common.dubbo.OrderDubboService;
 import org.neu.cs6650.koi.common.dubbo.StockDubboService;
 import org.neu.cs6650.koi.common.enums.RspStatusEnum;
@@ -24,6 +25,9 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Reference(version = "1.0.0")
     private OrderDubboService orderDubboService;
+
+    @Reference(version = "1.0.0")
+    private AccountDubboService accountDubboService;
 
     private boolean flag;
 
@@ -118,10 +122,53 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
+    public ObjectResponse handleRegister(AccountDTO accountDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse accountResponse = accountDubboService.createAccount(accountDTO);
+        if (accountResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(accountResponse.getData());
+        return objectResponse;
+    }
+
+
+    @Override
+    //@GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
+    public ObjectResponse handleLogin(AccountDTO accountDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse loginResponse = handleGetAccount(accountDTO);
+
+        if (loginResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(loginResponse.getData());
+        return objectResponse;
+    }
+
+    @Override
+    public ObjectResponse handleGetAccount(AccountDTO accountDTO) {
+        ObjectResponse<Object> objectResponse = new ObjectResponse<>();
+        ObjectResponse accountResponse = accountDubboService.getAccount(accountDTO);
+        if (accountResponse.getStatus() != 200) {
+            throw new DefaultException(RspStatusEnum.FAIL);
+        }
+        objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
+        objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        objectResponse.setData(accountResponse.getData());
+        return objectResponse;
+    }
+
+    @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata")
     public ObjectResponse deleteOrder(OrderDTO orderDTO) {
         log.info("Start global transaction, XID: {}", RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
-
         ObjectResponse<Object> response = orderDubboService.deleteOrder(orderDTO);
 
         if (response.getStatus() != 200) {
