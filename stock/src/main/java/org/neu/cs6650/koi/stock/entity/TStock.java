@@ -16,6 +16,10 @@ public class TStock extends Model<TStock> {
     private String name;
     private Integer count;
 
+    private Double price;
+
+    private String image;
+
     public Integer getId() {
         return id;
     }
@@ -48,6 +52,22 @@ public class TStock extends Model<TStock> {
         this.count = count;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public Serializable pkVal() {
         return this.id;
@@ -55,7 +75,13 @@ public class TStock extends Model<TStock> {
 
     @Override
     public String toString() {
-        return "TStock{" + ", id=" + id + ", commodityCode=" + commodityCode + ", name=" + name + ", count=" + count
-            + "}";
+        return "TStock{" +
+                "id=" + id +
+                ", commodityCode='" + commodityCode + '\'' +
+                ", name='" + name + '\'' +
+                ", count=" + count +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
