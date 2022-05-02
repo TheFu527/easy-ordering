@@ -7,11 +7,12 @@
         <result column="commodity_code" property="commodityCode"/>
         <result column="name" property="name"/>
         <result column="count" property="count"/>
+        <result column="image" property="image"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id
-        , commodity_code, name, count
+        , commodity_code, name, count, image
     </sql>
 
     <update id="decreaseStock">

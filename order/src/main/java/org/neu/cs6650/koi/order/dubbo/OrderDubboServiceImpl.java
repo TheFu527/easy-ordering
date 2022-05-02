@@ -38,4 +38,10 @@ public class OrderDubboServiceImpl implements OrderDubboService {
         log.info("getOrderByUId: {}", accountDTO.toString());
         return orderService.getOrderByUId(accountDTO);
     }
+
+    @Override
+    public ObjectResponse<Object> deleteOrder(OrderDTO orderDTO) {
+        log.info("deleteOrder: {}", orderDTO.toString());
+        return orderService.deleteOrder(orderDTO);
+    }
 }

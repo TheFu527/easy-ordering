@@ -17,4 +17,6 @@ public interface BusinessService {
     ObjectResponse getOrderByOId(OrderDTO orderDTO);
 
     ObjectResponse getOrderByUId(AccountDTO accountDTO);
+
+    ObjectResponse deleteOrder(OrderDTO orderDTO);
 }

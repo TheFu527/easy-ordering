@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class TOrder extends Model<TOrder> {
 
@@ -17,6 +18,7 @@ public class TOrder extends Model<TOrder> {
     private String commodityCode;
     private Integer count;
     private Double amount;
+    private String description;
 
     public Integer getId() {
         return id;
@@ -66,6 +68,14 @@ public class TOrder extends Model<TOrder> {
         this.amount = amount;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public Serializable pkVal() {
         return this.id;
@@ -73,7 +83,14 @@ public class TOrder extends Model<TOrder> {
 
     @Override
     public String toString() {
-        return "TOrder{" + ", id=" + id + ", orderNo=" + orderNo + ", userId=" + userId + ", commodityCode="
-            + commodityCode + ", count=" + count + ", amount=" + amount + "}";
+        return "TOrder{" +
+                "id=" + id +
+                ", orderNo='" + orderNo + '\'' +
+                ", userId='" + userId + '\'' +
+                ", commodityCode='" + commodityCode + '\'' +
+                ", count=" + count +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

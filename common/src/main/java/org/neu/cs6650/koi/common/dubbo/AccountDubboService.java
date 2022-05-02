@@ -6,4 +6,7 @@ import org.neu.cs6650.koi.common.response.ObjectResponse;
 public interface AccountDubboService {
 
     ObjectResponse decreaseAccount(AccountDTO accountDTO);
+
+    ObjectResponse increaseAccount(AccountDTO accountDTO);
+
 }
