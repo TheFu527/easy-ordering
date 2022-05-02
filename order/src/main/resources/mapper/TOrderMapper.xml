@@ -22,12 +22,12 @@
         values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
     </insert>
 
-    <select id="getOrderByOId" resultType="org.neu.cs6650.koi.order.entity.TOrder">
+    <select id="getOrderByOId" resultMap="BaseResultMap">
         select * from t_order
         where order_no = #{orderNo}
     </select>
 
-    <select id="getOrderByUId" resultType="org.neu.cs6650.koi.order.entity.TOrder">
+    <select id="getOrderByUId" resultMap="BaseResultMap">
         select * from t_order
         where user_id = #{userId}
     </select>

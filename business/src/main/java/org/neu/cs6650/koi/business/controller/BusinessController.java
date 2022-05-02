@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/business")
+@RequestMapping("/api")
 @Slf4j
 public class BusinessController {
 
@@ -33,7 +33,7 @@ public class BusinessController {
 
     @RequestMapping(value = "/stocks", method = RequestMethod.GET)
     ObjectResponse getStock(@RequestParam Map<String, String> requestParams) {
-        String commodityCode = requestParams.get("commodityCode");
+        String commodityCode = requestParams.get("commodity_code");
         if (commodityCode != null) {
             CommodityDTO commodityDTO = new CommodityDTO();
             commodityDTO.setCommodityCode(commodityCode);
@@ -45,8 +45,8 @@ public class BusinessController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     ObjectResponse getOrderByOId(@RequestParam Map<String, String> requestParams) {
-        String userId = requestParams.get("userId");
-        String orderNo = requestParams.get("orderNo");
+        String userId = requestParams.get("user_id");
+        String orderNo = requestParams.get("order_no");
         if (userId != null) {
             AccountDTO accountDTO = new AccountDTO();
             accountDTO.setUserId(userId);

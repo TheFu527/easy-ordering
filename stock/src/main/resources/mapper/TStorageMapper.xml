@@ -26,12 +26,12 @@
         where commodity_code = #{commodityCode}
     </update>
 
-    <select id="getStock" resultType="org.neu.cs6650.koi.stock.entity.TStock">
+    <select id="getStock" resultMap="BaseResultMap">
         select * from t_stock
         where commodity_code = #{commodityCode}
     </select>
 
-    <select id="getAllStocks" resultType="org.neu.cs6650.koi.stock.entity.TStock">
+    <select id="getAllStocks" resultMap="BaseResultMap">
         select * from t_stock
     </select>
 </mapper>
