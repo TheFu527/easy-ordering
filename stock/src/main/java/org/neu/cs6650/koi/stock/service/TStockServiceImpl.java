@@ -16,16 +16,16 @@ public class TStockServiceImpl extends ServiceImpl<TStockMapper, TStock> impleme
 
     @Override
     public ObjectResponse decreaseStock(CommodityDTO commodityDTO) {
-        int stock = baseMapper.decreaseStock(commodityDTO.getCommodityCode(), commodityDTO.getCount());
         ObjectResponse<Object> response = new ObjectResponse<>();
-        if (stock > 0) {
-            response.setStatus(RspStatusEnum.SUCCESS.getCode());
-            response.setMessage(RspStatusEnum.SUCCESS.getMessage());
+        TStock stock = baseMapper.getStock(commodityDTO.getCommodityCode());
+        if (stock.getCount() < commodityDTO.getCount()) {
+            response.setStatus(RspStatusEnum.STOCK_LOW.getCode());
+            response.setMessage(RspStatusEnum.STOCK_LOW.getMessage());
             return response;
         }
-
-        response.setStatus(RspStatusEnum.FAIL.getCode());
-        response.setMessage(RspStatusEnum.FAIL.getMessage());
+        baseMapper.decreaseStock(commodityDTO.getCommodityCode(), commodityDTO.getCount());
+        response.setStatus(RspStatusEnum.SUCCESS.getCode());
+        response.setMessage(RspStatusEnum.SUCCESS.getMessage());
         return response;
     }
 

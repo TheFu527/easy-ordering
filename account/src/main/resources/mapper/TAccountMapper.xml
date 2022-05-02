@@ -19,4 +19,8 @@
         where user_id = #{userId}
     </update>
 
+    <select id="getAccount" resultType="BaseResultMap">
+        select * from t_account
+        where user_id = #{userId}
+    </select>
 </mapper>

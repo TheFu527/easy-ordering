@@ -4,9 +4,13 @@ public enum RspStatusEnum {
 
     SUCCESS(200, "SUCCESS"),
 
-    FAIL(999, "FAIL"),
+    FAIL(400, "FAIL"),
 
-    EXCEPTION(500, "EXCEPTION");
+    EXCEPTION(500, "EXCEPTION"),
+
+    STOCK_LOW(400, "NOT ENOUGH STOCK"),
+
+    MONEY_SHORT(400, "NOT ENOUGH MONEY");
 
     private int code;
 

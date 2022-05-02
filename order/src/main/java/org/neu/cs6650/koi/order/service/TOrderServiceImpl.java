@@ -11,7 +11,13 @@ import org.neu.cs6650.koi.order.entity.TOrder;
 import org.neu.cs6650.koi.order.mapper.TOrderMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.stringtemplate.v4.ST;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +42,9 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         BeanUtils.copyProperties(orderDTO, tOrder);
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
+        String time = getOrderTime();
+        String description = String.format("%s: user %s placed an order on commodity %s, the count is %s, total money is %s", time, orderDTO.getCommodityCode(), orderDTO.getOrderCount(), orderDTO.getOrderAmount());
+        tOrder.setDescription(description);
         try {
             baseMapper.createOrder(tOrder);
         } catch (Exception e) {
@@ -73,5 +82,13 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         response.setData(orderList);
         response.setMessage(RspStatusEnum.SUCCESS.getMessage());
         return response;
+    }
+
+    private String getOrderTime() {
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+        DateFormat df = new SimpleDateFormat(pattern);
+        Date today = (Date) Calendar.getInstance().getTime();
+        String todayAsString = df.format(today);
+        return todayAsString;
     }
 }
