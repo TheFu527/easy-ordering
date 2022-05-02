@@ -14,5 +14,5 @@ public interface TOrderMapper extends BaseMapper<TOrder> {
 
     List<TOrder> getOrderByUId(@Param("userId") String userId);
 
-    void deleteOrder(@Param("userId") String orderNo);
+    void deleteOrder(@Param("orderNo") String orderNo);
 }
