@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "easy-ordering.fullname" . }}-stock
+  labels:
+    {{- include "easy-ordering.labels" . | nindent 4 }}
+    easy-ordering.app: "stock"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "easy-ordering.selectorLabels" . | nindent 6 }}
+      easy-ordering.app: "stock"
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "easy-ordering.selectorLabels" . | nindent 8 }}
+        easy-ordering.app: "stock"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "easy-ordering.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: stock
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.order.image.repository }}:{{ .Values.order.image.tag }}"
+          imagePullPolicy: {{ .Values.stock.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.stock.config.server.port }}
+              protocol: TCP
+            - name: dubbo
+              containerPort: {{ .Values.stock.config.dubbo.protocol.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /app/config
+              name: config
+      volumes:
+        - configMap:
+            name: {{ include "easy-ordering.fullname" . }}-stock
+          name: config
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

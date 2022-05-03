@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "easy-ordering.fullname" . }}-stock
+  labels:
+    {{- include "easy-ordering.labels" . | nindent 4 }}
+    easy-ordering.app: "stock"
+data:
+  application.yaml: |
+    {{- toYaml .Values.stock.config | nindent 4 }}

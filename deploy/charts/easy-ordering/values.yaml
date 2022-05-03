@@ -4,6 +4,91 @@
 
 replicaCount: 1
 
+account:
+  image:
+    repository: fuhao527/easy-ordering-account
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20880
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8102
+
+business:
+  image:
+    repository: fuhao527/easy-ordering-business
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 10001
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+    server:
+      port: 8104
+
+stock:
+  image:
+    repository: fuhao527/easy-ordering-stock
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20882
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8100
+
+
+order:
+  image:
+    repository: fuhao527/easy-ordering-stock
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20881
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8101
+
 image:
   repository: nginx
   pullPolicy: IfNotPresent
@@ -16,7 +101,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -67,13 +152,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
