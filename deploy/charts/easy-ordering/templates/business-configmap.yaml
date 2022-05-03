@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "easy-ordering.fullname" . }}-business
+  labels:
+    {{- include "easy-ordering.labels" . | nindent 4 }}
+    easy-ordering.app: "business"
+data:
+  application.yaml: |
+    {{- toYaml .Values.business.config | nindent 4 }}
