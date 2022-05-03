@@ -6,9 +6,9 @@ replicaCount: 1
 
 account:
   image:
-    repository: nginx
-    pullPolicy: IfNotPresent
-    tag: ""
+    repository: fuhao527/easy-ordering-account
+    pullPolicy: Always
+    tag: "latest"
   config:
     dubbo:
       registry: "nacos://127.0.0.1:8848"
@@ -28,9 +28,9 @@ account:
 
 business:
   image:
-    repository: nginx
-    pullPolicy: IfNotPresent
-    tag: ""
+    repository: fuhao527/easy-ordering-business
+    pullPolicy: Always
+    tag: "latest"
   config:
     dubbo:
       registry: "nacos://127.0.0.1:8848"
@@ -46,9 +46,9 @@ business:
 
 stock:
   image:
-    repository: nginx
-    pullPolicy: IfNotPresent
-    tag: ""
+    repository: fuhao527/easy-ordering-stock
+    pullPolicy: Always
+    tag: "latest"
   config:
     dubbo:
       registry: "nacos://127.0.0.1:8848"
@@ -69,9 +69,9 @@ stock:
 
 order:
   image:
-    repository: nginx
+    repository: fuhao527/easy-ordering-stock
     pullPolicy: Always
-    tag: ""
+    tag: "latest"
   config:
     dubbo:
       registry: "nacos://127.0.0.1:8848"
