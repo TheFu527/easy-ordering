@@ -1,21 +1,29 @@
 # Easy Ordering
 
-## About/Overview
-
-## List of features
-
-## Build
-java version: jdk 11. Please remind! This works for all four web applications!
-
-
 ## Clone
 
-```
+```shell
 git clone https://github.com/TheFu527/easy-ordering
 cd easy-ordering
 ```
 
-## How to Run
+## Build
+
+java version: jdk 11. Please remind! This works for all four web applications!
+
+### Local
+
+```shell
+mvn clean package
+```
+
+### Docker
+
+```shell
+make all
+```
+
+## How to Run Local
 
 ### Run MySQL & Import SQL Script
 
@@ -108,15 +116,121 @@ Result:
 {"status":200,"message":"SUCCESS","data":null}
 ```
 
+## Run on K8s
+
+Helm Charts in `deploy/charts/easy-ordering`
+
+### Run project dependencies on K8s
+
+Please run MySQL, Nacos, Seata in k8s. Then modify the relevant configuration in `Values.yaml`.
+
+```yaml
+account:
+  image:
+    repository: fuhao527/easy-ordering-account
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20880
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8102
+
+business:
+  image:
+    repository: fuhao527/easy-ordering-business
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 10001
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+    server:
+      port: 8104
+
+stock:
+  image:
+    repository: fuhao527/easy-ordering-stock
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20882
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8100
+
+
+order:
+  image:
+    repository: fuhao527/easy-ordering-stock
+    pullPolicy: Always
+    tag: "latest"
+  config:
+    dubbo:
+      registry: "nacos://127.0.0.1:8848"
+      protocol:
+        port: 20881
+    spring:
+      cloud:
+        nacos:
+          discovery:
+            server-addr: "127.0.0.1:8848"
+      datasource:
+        url: "jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+        username: "root"
+        password: "root"
+    server:
+      port: 8101
+```
+
+### Run Easy Ordering
+
+```shell
+helm install -n YOUR_NAMESPACE easy-ordering ./deploy/charts/easy-ordering
+```
+
 ## Common Problem
 ### Cannot load configuration class
+
  ```
 Cannot load configuration class:org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration
  ```
+
 Use the wrong version of JDK, should be jdk 11. 
 The download link: https://files01.tchspt.com/temp/jdk-11.0.14_linux-x64_bin.tar.gz
+
 ### ERROR 1045 (28000)
+
 ```
 ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
 ```
+
 Input wrong password of server, the user should be `root`, password should be 'root'.
