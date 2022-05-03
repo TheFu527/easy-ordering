@@ -52,7 +52,7 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
             response.setStatus(RspStatusEnum.NON_EXIST.getCode());
             response.setMessage(RspStatusEnum.NON_EXIST.getMessage());
             return response;
-        } else if (tAccount.getPassword() != accountDTO.getPassword()) {
+        } else if (!tAccount.getPassword().equals(accountDTO.getPassword())) {
             response.setStatus(RspStatusEnum.NOT_MATCH.getCode());
             response.setMessage(RspStatusEnum.NOT_MATCH.getMessage());
             return response;
