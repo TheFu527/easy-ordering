@@ -8,7 +8,7 @@ import org.neu.cs6650.koi.common.response.ObjectResponse;
 
 public interface BusinessService {
 
-    ObjectResponse handleBusiness(BusinessDTO businessDTO);
+    ObjectResponse handleCreateOrder(BusinessDTO businessDTO);
 
     ObjectResponse getAllStocks();
 

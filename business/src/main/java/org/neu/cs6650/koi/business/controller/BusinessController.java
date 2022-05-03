@@ -28,9 +28,9 @@ public class BusinessController {
     private BusinessService businessService;
 
     @PostMapping("/orders")
-    ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO) {
+    ObjectResponse handleCreateOrder(@RequestBody BusinessDTO businessDTO) {
         log.info("Request parameter: {}", businessDTO.toString());
-        return businessService.handleBusiness(businessDTO);
+        return businessService.handleCreateOrder(businessDTO);
     }
 
     @DeleteMapping("/orders")
@@ -67,29 +67,30 @@ public class BusinessController {
             return businessService.getOrderByOId(orderDTO);
         }
     }
-        //post api for login.
-        //return user row if user exist, otherwise create new user.
-        @PostMapping("/accounts/login")
-        ObjectResponse handleLogin(@RequestBody AccountDTO accountDTO) {
-            //LOGGER.info("Request parameter: {}", name, password);
 
-            return businessService.handleLogin(accountDTO);
-        }
+    //post api for login.
+    //return user row if user exist, otherwise create new user.
+    @PostMapping("/accounts/login")
+    ObjectResponse handleLogin(@RequestBody AccountDTO accountDTO) {
+        //LOGGER.info("Request parameter: {}", name, password);
 
-        //post api for register(create new user).
-        //return all info including user id.
-        @PostMapping("/accounts/register")
-        ObjectResponse handleRegister(@RequestBody AccountDTO accountDTO) {
-            //LOGGER.info("Request parameter: {}", name, password);
-            return businessService.handleRegister(accountDTO);
-        }
+        return businessService.handleLogin(accountDTO);
+    }
 
-        //post api for getting existing user info.
-        @GetMapping("/accounts")
-        ObjectResponse handleGetAccount(String user_id) {
-            //LOGGER.info("Request parameter: {}", user_name, password);
-            AccountDTO accountDTO = new AccountDTO();
-            accountDTO.setUserId(user_id);
-            return businessService.handleGetAccount(accountDTO);
+    //post api for register(create new user).
+    //return all info including user id.
+    @PostMapping("/accounts/register")
+    ObjectResponse handleRegister(@RequestBody AccountDTO accountDTO) {
+        //LOGGER.info("Request parameter: {}", name, password);
+        return businessService.handleRegister(accountDTO);
+    }
+
+    //post api for getting existing user info.
+    @GetMapping("/accounts")
+    ObjectResponse handleGetAccount(String user_id) {
+        //LOGGER.info("Request parameter: {}", user_name, password);
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setUserId(user_id);
+        return businessService.handleGetAccount(accountDTO);
     }
 }
